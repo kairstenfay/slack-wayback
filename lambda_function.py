@@ -1,5 +1,4 @@
 import os
-import ast
 import json
 import urllib
 import urllib.request
@@ -16,6 +15,8 @@ def create_wayback_machine_response(event: Dict[str, Any]) -> str:
         .pop()['elements']
 
     links = list(filter(lambda el: el['type'] == "link", elements))
+    if not links:
+        return "Please include a link when you mention me."
 
     results = set()
 
@@ -24,7 +25,6 @@ def create_wayback_machine_response(event: Dict[str, Any]) -> str:
         with urllib.request.urlopen(url) as request:
             response = json.loads(request.read().decode('utf-8'))
             print(response)
-            print(type(response))
 
         snapshot = response.get('archived_snapshots')
         if not snapshot:
@@ -32,25 +32,26 @@ def create_wayback_machine_response(event: Dict[str, Any]) -> str:
 
         results.add(snapshot['closest']['url'])
 
-    return "Here are your results! \n" + '\n'.join(results)
+    if not results:
+        return "Sorry, I couldn't find any results for that."
+
+    return "Here are the results I was able to find: \n" + '\n'.join(results)
 
 
 def respond_to_mention(event):
     channel_id = event.get("channel")
 
-    data = urllib.parse.urlencode(
-        (
-            ("token", os.environ["SLACK_BOT_TOKEN"]),
-            ("channel", channel_id),
-            ("text", create_wayback_machine_response(event))
-        )
-    )
-    data = data.encode('ascii')
+    data = urllib.parse.urlencode((
+        ("token", os.environ["SLACK_BOT_TOKEN"]),
+        ("channel", channel_id),
+        ("text", create_wayback_machine_response(event))
+        )).encode('ascii')
+
     request = urllib.request.Request(SLACK_URL, data=data, method="POST")
     request.add_header( "Content-Type", "application/x-www-form-urlencoded" )
 
     # Fire off the request!
-    x = urllib.request.urlopen(request).read()
+    urllib.request.urlopen(request).read()
 
 
 def lambda_handler(event, context):
