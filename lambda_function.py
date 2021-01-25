@@ -35,7 +35,7 @@ def create_wayback_machine_response(event: Dict[str, Any]) -> str:
     if not results:
         return "Sorry, I couldn't find any results for that."
 
-    return "Here are the results I was able to find: \n" + '\n'.join(results)
+    return "Here's what I found: \n" + '\n'.join(results)
 
 
 def respond_to_mention(event):
