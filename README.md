@@ -1,10 +1,9 @@
 # Slack Wayback bot
 
-This code is for deploying a Slack bot that runs on AWS Lambda.
-The Slack app has the following features and functionality:
-* **Event Subscriptions** (registered using the provided AWS Lambda URL endpoint)
-* **Bots**
-* **Permissions** (This is where you'll find your bot token which you'll want to configure as an environment variable named `SLACK_BOT_TOKEN`. This is the token that starts with `xoxb-*`.)
+![Example of Slack bot interaction](./thumbnail_slack_wayback.png)
+
+This code is for deploying a Slack bot that responds to app mentions with the latest web.archive.org archived copy of any links in the user's message.
+The code is written to run on AWS Lambda.
 
 
 ## Requirements
@@ -13,6 +12,11 @@ To deploy this bot, you'll need access to a Slack space where you have permissio
 
 
 ## Slack configuration
+
+The Slack app has the following features and functionality:
+* **Event Subscriptions** (registered using the provided AWS Lambda URL endpoint)
+* **Bots**
+* **Permissions** (This is where you'll find your bot token which you'll want to configure as an environment variable named `SLACK_BOT_TOKEN`. This is the token that starts with `xoxb-*`.)
 
 Currently, the configured Slack Bot Token Scopes are:
 * `app_mentions:read`
