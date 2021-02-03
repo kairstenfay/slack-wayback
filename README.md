@@ -2,7 +2,7 @@
 
 ![Example of Slack bot interaction](./thumbnail_slack_wayback.png)
 
-This code is for deploying a Slack bot that responds to app mentions with the latest web.archive.org archived copy of any links in the user's message.
+This code is for deploying a Slack bot that responds to app mentions with the latest [web.archive.org](http://web.archive.org/) archived copy of any links in the user's message.
 The code is written to run on AWS Lambda.
 
 
@@ -25,7 +25,7 @@ Currently, the configured Slack Bot Token Scopes are:
 * `chat:write.public`
 * `links:read`
 
-The bot is also subscribe to the `app_mention` Event Name.
+The bot is also subscribed to the `app_mention` Event Name.
 It is not subscribed to any events on behalf of users.
 
 
