@@ -33,7 +33,7 @@ def create_wayback_machine_response(event: Dict[str, Any]) -> str:
         results.add(snapshot['closest']['url'])
 
     if not results:
-        return "Sorry, I couldn't find any results for that."
+        return "Sorry, I couldn't find any results for that. If your linked webpage(s) are new, we may not have picked them up in our latest crawl."
 
     return "Here's what I found: \n" + '\n'.join(results)
 
